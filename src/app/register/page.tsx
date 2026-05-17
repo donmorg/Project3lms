@@ -3,7 +3,7 @@
 import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { GraduationCap, BookOpen, ShieldCheck, User, Mail, Lock, UserCircle, Loader2 } from "lucide-react";
+import { GraduationCap, BookOpen, ShieldCheck, User, Mail, Lock, UserCircle, Loader2, Sparkles, Heart } from "lucide-react";
 
 function RegisterForm() {
   const router = useRouter();
@@ -48,128 +48,205 @@ function RegisterForm() {
   };
 
   return (
-    <div className="min-h-screen grid md:grid-cols-2">
+    <div className="min-h-screen grid md:grid-cols-2 bg-slate-950 text-slate-100">
+      
       {/* Visual Side */}
-      <div className={`hidden md:flex flex-col justify-center items-center p-12 text-white transition-colors duration-500 ${
-        formData.role === "TEACHER" ? "bg-gray-900" : "bg-indigo-600"
+      <div className={`hidden md:flex flex-col justify-center items-center p-16 relative overflow-hidden transition-all duration-700 border-e border-slate-900/50 ${
+        formData.role === "TEACHER" 
+          ? "bg-slate-950" 
+          : "bg-slate-950"
       }`}>
-        <div className="max-w-md text-center">
+        {/* Animated background blobs for the visual panel */}
+        {formData.role === "TEACHER" ? (
+          <>
+            <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full bg-emerald-500/10 blur-[100px] animate-pulse" />
+            <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-teal-500/5 blur-[100px] animate-pulse" style={{ animationDelay: '2s' }} />
+          </>
+        ) : (
+          <>
+            <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full bg-indigo-600/10 blur-[100px] animate-pulse" />
+            <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-violet-500/5 blur-[100px] animate-pulse" style={{ animationDelay: '2s' }} />
+          </>
+        )}
+        
+        <div className="max-w-md text-center relative z-10">
           {formData.role === "TEACHER" ? (
-            <>
-              <ShieldCheck className="w-24 h-24 mb-8 mx-auto animate-pulse" />
-              <h2 className="text-4xl font-bold mb-4">Empower Young Minds</h2>
-              <p className="text-xl text-gray-400">Join our community of educators and shape the future of learning.</p>
-            </>
+            <div className="space-y-6">
+              <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-tr from-emerald-600 to-teal-500 text-white rounded-3xl mb-4 shadow-xl shadow-emerald-500/20 animate-pulse">
+                <ShieldCheck className="w-12 h-12" />
+              </div>
+              <h2 className="text-4xl font-black text-white tracking-tight">Empower Young Minds</h2>
+              <p className="text-lg text-slate-400 font-medium leading-relaxed">
+                Join our counseling community, track students mental health, and provide customized learning paths.
+              </p>
+            </div>
           ) : (
-            <>
-              <GraduationCap className="w-24 h-24 mb-8 mx-auto animate-bounce" />
-              <h2 className="text-4xl font-bold mb-4">Start Your Adventure</h2>
-              <p className="text-xl text-indigo-100">Unlock a world of fun lessons and earn awesome stars!</p>
-            </>
+            <div className="space-y-6">
+              <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-tr from-indigo-600 to-violet-500 text-white rounded-3xl mb-4 shadow-xl shadow-indigo-500/20 animate-bounce">
+                <GraduationCap className="w-12 h-12" />
+              </div>
+              <h2 className="text-4xl font-black text-white tracking-tight">Start Your Adventure</h2>
+              <p className="text-lg text-slate-400 font-medium leading-relaxed">
+                Unlock custom mental health quizzes, master exciting lessons, and earn stars along the way!
+              </p>
+            </div>
           )}
         </div>
       </div>
 
       {/* Form Side */}
-      <div className="flex flex-col justify-center items-center p-8 bg-white">
-        <div className="w-full max-w-md">
-          <Link href="/" className="inline-flex items-center text-indigo-600 font-bold mb-8 hover:underline">
+      <div className="flex flex-col justify-center items-center p-8 md:p-16 bg-slate-950 relative overflow-hidden">
+        
+        {/* Glow Blobs behind form */}
+        <div className="absolute top-[20%] right-[-20%] w-[300px] h-[300px] rounded-full bg-indigo-500/5 blur-[90px]" />
+        
+        <div className="w-full max-w-md relative z-10">
+          <Link 
+            href="/" 
+            className="inline-flex items-center gap-1.5 text-indigo-400 hover:text-indigo-300 font-extrabold text-sm mb-10 transition-colors uppercase tracking-wider"
+          >
             ← Back to Home
           </Link>
-          <h1 className="text-3xl font-bold mb-2">Create Account</h1>
-          <p className="text-gray-500 mb-8">Join the best educational platform for kids!</p>
+          
+          <h1 className="text-3xl font-black text-white tracking-tight mb-2">Create Account</h1>
+          <p className="text-slate-400 font-semibold text-sm mb-8">Join ATHAR to get started today!</p>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Role Toggle */}
-            <div className="flex p-1 bg-gray-100 rounded-2xl mb-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            
+            {/* Role Toggle Switch */}
+            <div className="flex p-1 bg-slate-900 border border-slate-800 rounded-2xl mb-6">
               <button
                 type="button"
                 onClick={() => setFormData({ ...formData, role: "STUDENT" })}
-                className={`flex-1 py-3 rounded-xl font-bold transition-all flex items-center justify-center ${
-                  formData.role === "STUDENT" ? "bg-white text-indigo-600 shadow-sm" : "text-gray-500"
+                className={`flex-1 py-3 rounded-xl font-extrabold text-sm transition-all flex items-center justify-center gap-2 ${
+                  formData.role === "STUDENT" 
+                    ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/10" 
+                    : "text-slate-400 hover:text-slate-200"
                 }`}
               >
-                <BookOpen className="w-4 h-4 mr-2" />
+                <BookOpen className="w-4 h-4 shrink-0" />
                 Student
               </button>
               <button
                 type="button"
                 onClick={() => setFormData({ ...formData, role: "TEACHER" })}
-                className={`flex-1 py-3 rounded-xl font-bold transition-all flex items-center justify-center ${
-                  formData.role === "TEACHER" ? "bg-white text-gray-900 shadow-sm" : "text-gray-500"
+                className={`flex-1 py-3 rounded-xl font-extrabold text-sm transition-all flex items-center justify-center gap-2 ${
+                  formData.role === "TEACHER" 
+                    ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/10" 
+                    : "text-slate-400 hover:text-slate-200"
                 }`}
               >
-                <ShieldCheck className="w-4 h-4 mr-2" />
+                <ShieldCheck className="w-4 h-4 shrink-0" />
                 Psychologist
               </button>
             </div>
 
             {error && (
-              <div className="p-4 bg-red-50 border-l-4 border-red-500 text-red-700 font-medium rounded-r-lg">
+              <div className="p-4 bg-red-950/40 border border-red-900/50 text-red-400 font-bold rounded-xl text-center backdrop-blur-sm animate-in fade-in">
                 {error}
               </div>
             )}
 
-            <div className="space-y-4">
-              <div className="relative">
-                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <div className="space-y-5">
+              {/* Full Name input */}
+              <div className="relative group">
                 <input
                   type="text"
-                  placeholder="Full Name"
                   required
                   value={formData.fullName}
                   onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                  className="w-full pl-12 pr-4 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                  className="w-full px-4 py-3.5 pt-6 rounded-2xl bg-slate-900 border border-slate-800 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:outline-none transition-all duration-300 peer placeholder-transparent font-medium"
+                  placeholder="Full Name"
+                  id="fullName"
                 />
+                <label
+                  htmlFor="fullName"
+                  className="absolute left-4 top-2 text-xs font-bold text-indigo-400 transition-all duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:text-slate-500 peer-placeholder-shown:top-4 peer-focus:top-2 peer-focus:text-xs peer-focus:text-indigo-400 pointer-events-none flex items-center gap-2"
+                >
+                  <User className="w-4 h-4" />
+                  Full Name
+                </label>
               </div>
 
-              <div className="relative">
-                <UserCircle className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              {/* Username input */}
+              <div className="relative group">
                 <input
                   type="text"
-                  placeholder="Username"
                   required
                   value={formData.username}
                   onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-                  className="w-full pl-12 pr-4 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                  className="w-full px-4 py-3.5 pt-6 rounded-2xl bg-slate-900 border border-slate-800 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:outline-none transition-all duration-300 peer placeholder-transparent font-medium"
+                  placeholder="Username"
+                  id="username"
                 />
+                <label
+                  htmlFor="username"
+                  className="absolute left-4 top-2 text-xs font-bold text-indigo-400 transition-all duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:text-slate-500 peer-placeholder-shown:top-4 peer-focus:top-2 peer-focus:text-xs peer-focus:text-indigo-400 pointer-events-none flex items-center gap-2"
+                >
+                  <UserCircle className="w-4 h-4" />
+                  Username
+                </label>
               </div>
 
-              <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              {/* Email input */}
+              <div className="relative group">
                 <input
                   type="email"
-                  placeholder="Email Address"
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full pl-12 pr-4 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                  className="w-full px-4 py-3.5 pt-6 rounded-2xl bg-slate-900 border border-slate-800 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:outline-none transition-all duration-300 peer placeholder-transparent font-medium"
+                  placeholder="Email Address"
+                  id="email"
                 />
+                <label
+                  htmlFor="email"
+                  className="absolute left-4 top-2 text-xs font-bold text-indigo-400 transition-all duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:text-slate-500 peer-placeholder-shown:top-4 peer-focus:top-2 peer-focus:text-xs peer-focus:text-indigo-400 pointer-events-none flex items-center gap-2"
+                >
+                  <Mail className="w-4 h-4" />
+                  Email Address
+                </label>
               </div>
 
-              <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              {/* Password input */}
+              <div className="relative group">
                 <input
                   type="password"
-                  placeholder="Password"
                   required
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  className="w-full pl-12 pr-4 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                  className="w-full px-4 py-3.5 pt-6 rounded-2xl bg-slate-900 border border-slate-800 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:outline-none transition-all duration-300 peer placeholder-transparent font-medium"
+                  placeholder="Password"
+                  id="password"
                 />
+                <label
+                  htmlFor="password"
+                  className="absolute left-4 top-2 text-xs font-bold text-indigo-400 transition-all duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:text-slate-500 peer-placeholder-shown:top-4 peer-focus:top-2 peer-focus:text-xs peer-focus:text-indigo-400 pointer-events-none flex items-center gap-2"
+                >
+                  <Lock className="w-4 h-4" />
+                  Password
+                </label>
               </div>
 
+              {/* Psychologist Passkey input */}
               {formData.role === "TEACHER" && (
-                <div className="relative animate-in slide-in-from-top-4 duration-300">
-                  <ShieldCheck className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-indigo-600" />
+                <div className="relative group animate-in slide-in-from-top-4 duration-300">
                   <input
                     type="password"
-                    placeholder="Psychologist Passkey"
                     required
                     value={formData.passkey}
                     onChange={(e) => setFormData({ ...formData, passkey: e.target.value })}
-                    className="w-full pl-12 pr-4 py-4 bg-indigo-50 border border-indigo-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                    className="w-full px-4 py-3.5 pt-6 rounded-2xl bg-slate-900 border border-slate-800 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 focus:outline-none transition-all duration-300 peer placeholder-transparent font-medium"
+                    placeholder="Psychologist Passkey"
+                    id="passkey"
                   />
+                  <label
+                    htmlFor="passkey"
+                    className="absolute left-4 top-2 text-xs font-bold text-indigo-400 transition-all duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:text-slate-500 peer-placeholder-shown:top-4 peer-focus:top-2 peer-focus:text-xs peer-focus:text-indigo-400 pointer-events-none flex items-center gap-2"
+                  >
+                    <ShieldCheck className="w-4 h-4" />
+                    Psychologist Passkey
+                  </label>
                 </div>
               )}
             </div>
@@ -177,18 +254,24 @@ function RegisterForm() {
             <button
               type="submit"
               disabled={loading}
-              className={`w-full py-4 rounded-2xl font-bold text-white shadow-lg transition-all transform active:scale-95 flex items-center justify-center ${
-                loading ? "bg-gray-400" : "bg-indigo-600 hover:bg-indigo-700 shadow-indigo-200"
+              className={`w-full py-4 rounded-2xl font-black text-white shadow-lg transition-all duration-300 transform active:scale-95 flex items-center justify-center relative overflow-hidden group ${
+                loading 
+                  ? "bg-slate-700 text-slate-500" 
+                  : "bg-gradient-to-r from-indigo-600 to-violet-500 hover:from-indigo-500 hover:to-violet-400 shadow-indigo-600/20"
               }`}
             >
+              {/* Shimmer effect */}
+              {!loading && (
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
+              )}
               {loading ? <Loader2 className="w-5 h-5 animate-spin mr-2" /> : null}
               {loading ? "Creating Account..." : "Join Now!"}
             </button>
           </form>
 
-          <p className="mt-8 text-center text-gray-500">
+          <p className="mt-8 text-center text-slate-400 text-sm font-semibold">
             Already have an account?{" "}
-            <Link href="/login" className="text-indigo-600 font-bold hover:underline">
+            <Link href="/login" className="text-indigo-400 hover:underline">
               Log In
             </Link>
           </p>
@@ -201,9 +284,9 @@ function RegisterForm() {
 export default function RegisterPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen flex flex-col items-center justify-center bg-indigo-600 text-white">
-        <Loader2 className="w-12 h-12 animate-spin mb-4" />
-        <p className="text-xl font-bold">Preparing your adventure...</p>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-slate-950 text-white">
+        <Loader2 className="w-12 h-12 animate-spin text-indigo-500 mb-4" />
+        <p className="text-lg font-bold">Preparing registration form...</p>
       </div>
     }>
       <RegisterForm />
